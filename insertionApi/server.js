@@ -10,16 +10,30 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.json());
 
-app.post('/insertionSort', function (req, res) {
+app.post('/insertionSort2', function (req, res) {
     var data = req.body.elements
-    var sorted_data = data.sort()
+    var sorted_data = insertionSort(data);
     res.send(sorted_data)
     res.end();
 })
 
-var server = app.listen(8081, function () {
+var server = app.listen(3000, function () {
     var host = server.address().address
     var port = server.address().port
     console.log(host)
     console.log("Example app listening at http://%s:%s", host, port)
 })
+
+let insertionSort = (inputArr) => {
+    let length = inputArr.length;
+    for (let i = 1; i < length; i++) {
+        let key = inputArr[i];
+        let j = i - 1;
+        while (j >= 0 && inputArr[j] > key) {
+            inputArr[j + 1] = inputArr[j];
+            j = j - 1;
+        }
+        inputArr[j + 1] = key;
+    }
+    return inputArr;
+};
